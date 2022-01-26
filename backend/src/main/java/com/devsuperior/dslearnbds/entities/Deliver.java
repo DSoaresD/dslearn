@@ -28,8 +28,9 @@ public class Deliver implements Serializable {
 	
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant moment;
+	
 	private DeliverStatus status;
-	private String feedBack;
+	private String feedback;
 	private Integer correctCount;
 	
 	@ManyToOne
@@ -47,14 +48,14 @@ public class Deliver implements Serializable {
 		
 	}
 
-	public Deliver(Long id, String uri, Instant moment, DeliverStatus status, String feedBack, Integer correctCount,
+	public Deliver(Long id, String uri, Instant moment, DeliverStatus status, String feedback, Integer correctCount,
 			Enrollment enrollment, Lesson lesson) {
 		super();
 		this.id = id;
 		this.uri = uri;
 		this.moment = moment;
 		this.status = status;
-		this.feedBack = feedBack;
+		this.feedback = feedback;
 		this.correctCount = correctCount;
 		this.enrollment = enrollment;
 		this.lesson = lesson;
@@ -93,11 +94,11 @@ public class Deliver implements Serializable {
 	}
 
 	public String getFeedBack() {
-		return feedBack;
+		return feedback;
 	}
 
 	public void setFeedBack(String feedBack) {
-		this.feedBack = feedBack;
+		this.feedback = feedBack;
 	}
 
 	public Integer getCorrectCount() {

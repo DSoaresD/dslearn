@@ -38,7 +38,7 @@ public class Reply implements Serializable {
 	private Topic topic;
 	
 	@ManyToOne
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name = "author_id")
 	private User author;
 	
 	@ManyToMany
@@ -81,6 +81,28 @@ public class Reply implements Serializable {
 
 	public void setMoment(Instant moment) {
 		this.moment = moment;
+	}
+	
+	
+
+	public Topic getTopic() {
+		return topic;
+	}
+
+	public void setTopic(Topic topic) {
+		this.topic = topic;
+	}
+
+	public User getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(User author) {
+		this.author = author;
+	}
+
+	public Set<User> getLikes() {
+		return likes;
 	}
 
 	@Override

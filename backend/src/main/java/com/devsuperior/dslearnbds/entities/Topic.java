@@ -39,9 +39,11 @@ public class Topic implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "lesson_id")
 	private Lesson lesson;
+	
 	@ManyToOne
 	@JoinColumn(name = "offer_id")
 	private Offer offer;
+	
 	@ManyToOne
 	@JoinColumn(name = "author_id")
 	private User author;
@@ -131,9 +133,6 @@ public class Topic implements Serializable {
 		this.author = author;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 
 	public Set<User> getLikes() {
 		return likes;
