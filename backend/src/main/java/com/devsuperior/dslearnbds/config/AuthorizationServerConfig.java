@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -37,6 +38,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	@Autowired
 	private JwtTokenEnhancer tokenEnhancer; // para adicinar elementos no token
 	
+	@Autowired
+	private UserDetailsService userDetailsService;
+	
 	//nas chaves é colocado o valor que esta no application.properties
 	@Value("${security.oauth2.client.client-id}")
 	private String clientId;
@@ -55,7 +59,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		clients.inMemory().withClient(clientId).secret(passwordEncoder.encode(clientSecret))
-				.scopes("read", "write").authorizedGrantTypes("password").accessTokenValiditySeconds(jwtDuration);
+				.scopes("read", "write").authorizedGrantTypes("password","refresh_token")
+				.accessTokenValiditySeconds(jwtDuration)
+				.refreshTokenValiditySeconds(jwtDuration);
 	}
 	//quem vai authorizar e o formato do token
 	@Override
@@ -69,7 +75,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 		endpoints.authenticationManager(authenticationManager)
 		.tokenStore(tokenStore)
 		.accessTokenConverter(accessTokenConverter)
-		.tokenEnhancer(chain);
+		.tokenEnhancer(chain)
+		.userDetailsService(userDetailsService); //acrecentado com o refresh Token
 	}
 
 }
