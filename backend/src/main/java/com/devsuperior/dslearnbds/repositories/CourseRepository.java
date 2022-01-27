@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.devsuperior.dslearnbds.entities.Course;
 
 @Repository
-public interface CourseRepositoy extends JpaRepository<Course, Long> {
+public interface CourseRepository extends JpaRepository<Course, Long> {
 
 }

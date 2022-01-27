@@ -7,6 +7,6 @@ import com.devsuperior.dslearnbds.entities.Enrollment;
 import com.devsuperior.dslearnbds.entities.pk.EnrollmentPK;
 
 @Repository
-public interface EnrollmentRepositoy extends JpaRepository<Enrollment, EnrollmentPK> {
+public interface EnrollmentRepository extends JpaRepository<Enrollment, EnrollmentPK> {
 
 }
