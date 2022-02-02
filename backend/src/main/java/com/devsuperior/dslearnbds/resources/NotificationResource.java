@@ -6,10 +6,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.devsuperior.dslearnbds.dto.NotificationDTO;
-import com.devsuperior.dslearnbds.dto.UserDTO;
 import com.devsuperior.dslearnbds.services.NotificationService;
 
 @RestController
@@ -20,8 +20,10 @@ public class NotificationResource {
 	private NotificationService service;
 	
 	@GetMapping
-	public ResponseEntity<Page<NotificationDTO>> notificationForCurrentUser(Pageable pageable){
-		Page<NotificationDTO> page = service.notificationsForCurrentUser(pageable);
+	public ResponseEntity<Page<NotificationDTO>> notificationForCurrentUser(
+		//RequestParam será o valor opcional colocado na url depois do "?" . O wrapper Boolean é para que ele sera instanciado automaticamente caso nao informado sendo este o defaultValue
+		@RequestParam(name = "unreadOnly", defaultValue = "false")	Boolean unreadOnly, Pageable pageable){
+		Page<NotificationDTO> page = service.notificationsForCurrentUser(unreadOnly, pageable);
 		return ResponseEntity.ok().body(page);
 	}
 
